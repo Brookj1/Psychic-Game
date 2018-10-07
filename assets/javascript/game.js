@@ -5,29 +5,40 @@ var compChoice = letters[Math.floor(Math.random() * letters.length)];
 var win = 0;
 var loss = 0;
 var guessesLeft = 9;
-var guessSoFar = [];
+var guessSoFar = [];    
 //var userGuess = 
+alert("Welcome! Let's see if you are psychic. Pick a letter (no numbers or symbols). You have nine attempts to see if you can guess the letter I am thinking of.");
 document.onkeyup = function (event) {
     //console.log(event.key);
     var userGuess = event.key.toLowerCase();
     //console.log("compChoice " + compChoice + " userGuess " + userGuess)
     //if they make a valid guess
-    if (userGuess === "a" || userGuess === "b" || userGuess === "c" || userGuess === "d" || userGuess === "e" || userGuess === "f" || userGuess === "g" || userGuess === "h" || userGuess === "i" || userGuess === "j" || userGuess === "k" || userGuess === "l" || userGuess === "m" || userGuess === "n" || userGuess === "o" || userGuess === "p" || userGuess === "q" || userGuess === "r" || userGuess === "s" || userGuess === "t" || userGuess === "u" || userGuess === "v" || userGuess === "w" || userGuess === "x" || userGuess === "y" || userGuess === "z") {
-        if (userGuess === compChoice) {
-            win++;
-            guessesLeft = 9;
-            guessSoFar.length = [];
-            alert("You must be psychic!");
+    //if (userGuess === "a" || userGuess === "b" || userGuess === "c" || userGuess === "d" || userGuess === "e" || userGuess === "f" || userGuess === "g" || userGuess === "h" || userGuess === "i" || userGuess === "j" || userGuess === "k" || userGuess === "l" || userGuess === "m" || userGuess === "n" || userGuess === "o" || userGuess === "p" || userGuess === "q" || userGuess === "r" || userGuess === "s" || userGuess === "t" || userGuess === "u" || userGuess === "v" || userGuess === "w" || userGuess === "x" || userGuess === "y" || userGuess === "z") {
+    if (letters.indexOf(userGuess) > -1) {
+        
+        if (guessesLeft >0) {
 
-        }else if (userGuess != compChoice) {    
-            guessesLeft--;
-            guessSoFar.push(userGuess);
-            
-        }else if (guessesLeft === 0); {
+            if (userGuess === compChoice) {
+                win++;
+                guessesLeft = 9;
+                guessSoFar.length = [];
+                console.log(win, guessesLeft, guessSoFar + "user === comp")
+                alert("You must be psychic!");
+                compChoice = letters[Math.floor(Math.random() * letters.length)];
+
+            }else if (userGuess != compChoice) {    
+                guessesLeft--;
+                guessSoFar.push(userGuess);
+                console.log(guessesLeft, guessSoFar + "user guess != comp")
+            }   
+        }else if (guessesLeft === 0) {
             guessesLeft = 9;
             loss++;
             guessSoFar.length = [];
+            console.log(guessesLeft, loss + "guessesLeft is 0")
             alert("You must not be psychic...you did not guess the letter I was thinking of. :(")
+            compChoice = letters[Math.floor(Math.random() * letters.length)];
+
         }
             
         document.getElementById("win-text").textContent = win;
